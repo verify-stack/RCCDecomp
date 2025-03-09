@@ -47,13 +47,13 @@ void createRCCReg()
   if (result != ERROR_SUCCESS) {
 	errorString = "couldn\'t create RCCService reg key";
     // FUN_00402220(errorString); // TODO: add roblox crash reporter
-	LOGEX(errorString)
+	  LOGEX(errorString)
   }
   moduleNameResult = GetModuleFileNameA(NULL, lpFilename, sizeof(lpFilename));
   if (moduleNameResult == NULL) {
     errorString = "GetModuleFileName failed";
     // FUN_00402220(errorString); // TODO: add roblox crash reporter
-	LOGEX(errorString)
+	  LOGEX(errorString)
   }
 
   result = lstrlenA(lpFilename);
@@ -92,14 +92,14 @@ void createRCCService()
   if (moduleNameResult == 0) {
     messageStatus = "GetModuleFileName failed";
     // FUN_00402220(messageStatus); // TODO: add roblox crash reporter
-	LOGEX(messageStatus)
+	  LOGEX(messageStatus)
   }
 
   hSCManager = OpenSCManagerA(NULL, NULL, 2);
   if (hSCManager == (SC_HANDLE)0x0) {
     messageStatus = "OpenSCManager failed";
     // FUN_00402220(messageStatus); // TODO: add roblox crash reporter
-	LOGEX(messageStatus)
+	  LOGEX(messageStatus)
   }
 
   hService = CreateServiceA(
@@ -110,7 +110,7 @@ void createRCCService()
 	  SERVICE_WIN32_OWN_PROCESS,
 	  SERVICE_AUTO_START,
 	  SERVICE_ERROR_NORMAL,
-      lpFilename,
+    lpFilename,
 	  NULL,
 	  NULL,
 	  NULL,
@@ -141,6 +141,116 @@ void createRCCService()
   }
 }
 
+// deletes the RCC service, this is actually very basic
+bool deleteRCCService()
+{
+  SC_HANDLE hSCManager;
+  SC_HANDLE hService;
+  DWORD lastError;
+  BOOL deleteSuccess;
+  
+  hSCManager = OpenSCManagerA(NULL, NULL, SC_MANAGER_ALL_ACCESS);
+  hService = OpenServiceA(hSCManager, "RCCService", DELETE);
+
+  if (hService == NULL) {
+    lastError = GetLastError();
+    printf("OpenService failed (%d)\n", lastError); // returns ERROR_INVALID_HANDLE?
+
+    CloseServiceHandle(hSCManager);
+    return false;
+  }
+
+  deleteSuccess = DeleteService(hService);
+  CloseServiceHandle(hSCManager);
+  return deleteSuccess != 0;
+}
+
+// removes the RCC reg
+void deleteRCCReg()
+{
+  HKEY hKey;
+  LSTATUS openKeyResult;
+  //GWindow *this;
+
+  openKeyResult = RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SYSTEM\\CurrentControlSet\\Services\\Eventlog\\Application", 0, KEY_WRITE, &hKey);
+  if (openKeyResult == ERROR_SUCCESS) {
+	// we haven't added G3D so ignore this
+    //G3D::GWindow::runMainLoop(this);
+    if (hKey != NULL) {
+      RegCloseKey(hKey);
+    }
+  }
+}
+
+// starts the RCC service
+void startRCCService()
+{
+  SC_HANDLE hSCManager;
+  SC_HANDLE hService;
+  DWORD lastError;
+  BOOL serviceSuccess;
+  
+  hSCManager = OpenSCManagerA(NULL, NULL, SC_MANAGER_ALL_ACCESS);
+  hService = OpenServiceA(hSCManager, "RCCService", SC_MANAGER_QUERY_LOCK_STATUS);
+  if (hService == NULL) {
+    lastError = GetLastError();
+    printf("OpenService failed (%d)\n", lastError);
+
+    CloseServiceHandle(hSCManager);
+    return;
+  }
+
+  serviceSuccess = StartServiceA(hService,0,(LPCSTR *)0x0);
+  if (serviceSuccess == 0) {
+    lastError = GetLastError();
+    printf("StartService failed (%d)\n", lastError);
+
+    CloseServiceHandle(hSCManager);
+    return;
+  }
+
+  printf("Service Starting\n");
+  CloseServiceHandle(hSCManager);
+  return;
+}
+
+// stops the rcc service from running
+// weirdly was different from the others
+
+void stopRCCService(void)
+
+{
+  SC_HANDLE hSCManager;
+  SC_HANDLE hService;
+  _SERVICE_STATUS serviceStatus;
+  DWORD lastError;
+  BOOL controlResult;
+  
+  hSCManager = OpenSCManagerA(NULL, NULL, SC_MANAGER_ALL_ACCESS);
+  hService = OpenServiceA(hSCManager, "RCCService", SC_MANAGER_QUERY_LOCK_STATUS);
+  if (hService == NULL) {
+    lastError = GetLastError();
+	printf("OpenService failed (%d)\n", lastError);
+	
+	CloseServiceHandle(hSCManager);
+	return;
+  }
+
+  controlResult = ControlService(hService,1,&_Stack_1c);
+  if (controlResult == 0)
+  {
+	lastError = GetLastError();
+	printf("ControlService failed (%d)\n", lastError);
+	
+	CloseServiceHandle(hSCManager);
+	return;
+  }
+
+  CloseServiceHandle(hSCManager);
+  return;
+}
+
+
 // entry point
 int main(int argc,char **argv)
 {
@@ -164,7 +274,7 @@ int main(int argc,char **argv)
       *argv[pressedKey] = '-';
     }
 
-    command = _mbsicmp((const unsigned char*)argv[pressedKey], (const unsigned char*)"-Install");
+    command = strcmp(argv[pressedKey], "-Install");
     if (command == 0) {
       createRCCReg();
       createRCCService();
@@ -172,29 +282,29 @@ int main(int argc,char **argv)
       pressedKey = pressedKey + 1;
     }
     else {
-      command = _mbsicmp((const unsigned char*)argv[pressedKey], (const unsigned char*)"-Uninstall");
+      command = strcmp(argv[pressedKey], "-Uninstall");
       if (command == 0) {
-        //FUN_00406190();
-        //FUN_004062f0();
+        deleteRCCService();
+        deleteRCCReg();
         keyTerm = '\0';
         pressedKey = pressedKey + 1;
       }
       else {
-        command = _mbsicmp((const unsigned char*)argv[pressedKey], (const unsigned char*)"-Start");
+        command = strcmp(argv[pressedKey], "-Start");
         if (command == 0) {
-          //FUN_004061f0();
+          startRCCService();
           keyTerm = '\0';
           pressedKey = pressedKey + 1;
         }
         else {
-          command = _mbsicmp((const unsigned char*)argv[pressedKey], (const unsigned char*)"-Stop");
+          command = strcmp(argv[pressedKey], "-Stop");
           if (command == 0) {
-            //FUN_00406280();
+            stopRCCService();
             keyTerm = '\0';
             pressedKey = pressedKey + 1;
           }
           else {
-            command = _mbsicmp((const unsigned char*)argv[pressedKey], (const unsigned char*)"-Console");
+            command = strcmp(argv[pressedKey], "-Console");
             if (command == 0) {
               currentRawChar = '\x01';
               keyTerm = '\0';
@@ -216,7 +326,7 @@ int main(int argc,char **argv)
     //FUN_00405b50();
     printf("Press ESC key to exit\n");
 	
-	// esc checking
+	  // esc checking
     do {
       pressedKey = _kbhit();
       if (pressedKey != 0) {
@@ -236,7 +346,7 @@ int main(int argc,char **argv)
     dispatchTable.lpServiceName = "RCCService";
     dispatchTable.lpServiceProc = NULL; //FUN_00406040;
     //dispatchResult = StartServiceCtrlDispatcherA(&dispatchTable);
-	dispatchResult = 0;
+    dispatchResult = 0;
     if (dispatchResult == 0) {
       lastError = GetLastError();
       printf("StartServiceCtrlDispatcher failed (%d)\n",lastError);

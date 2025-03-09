@@ -60,5 +60,7 @@ typedef LONG LSTATUS;
 #if _DEBUG
 #define LOGEX(x) { std::cout << x << std::endl; printf("%ld \n", GetLastError()); }
 #else
-#define LOGEX(x) throw std::runtime_error(x)
+#define LOGEX(x) { std::cout << x << std::endl; exit(0); } // throw std::runtime_error(x);
 #endif
+
+#define strcmp(x, y) _mbsicmp((const unsigned char*)x, (const unsigned char*)y); // keep the function of _mbsicmp but remove the not so nice parts
