@@ -6,4 +6,4 @@ RCCService is a service that ROBLOX still uses today to host gameservers and tak
 
 ## Requirements
 * Visual Studio 2005
-* Visual C++ 8 (or less)
+* Visual C++ 8
