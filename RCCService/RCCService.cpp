@@ -2,6 +2,10 @@
 //
 
 #include "stdafx.h"
+#include "gSOAP/generated/RCCServiceSoap.nsmap"
+#include "gSOAP/generated/soapRCCServiceSoapService.h"
+
+RCCServiceSoapService service; // you'll see what this is for
 
 // creates the reg
 int createRegMain()
@@ -216,8 +220,7 @@ void startRCCService()
 
 // stops the rcc service from running
 // weirdly was different from the others
-
-void stopRCCService(void)
+void stopRCCService()
 
 {
   SC_HANDLE hSCManager;
@@ -236,7 +239,7 @@ void stopRCCService(void)
 	return;
   }
 
-  controlResult = ControlService(hService,1,&_Stack_1c);
+  controlResult = ControlService(hService, 1, &serviceStatus);
   if (controlResult == 0)
   {
 	lastError = GetLastError();
@@ -250,6 +253,56 @@ void stopRCCService(void)
   return;
 }
 
+// starts up SOAP
+void startupRCC(int port)
+{
+  SOAP_SOCKET bindSocket;
+  HANDLE hEventLog;
+  char sprintBuffer[68];
+
+  service.send_timeout = 60; // 60 seconds 
+  service.recv_timeout = 60; // 60 seconds 
+  //service.accept_timeout = 1; // server stops after 1 second
+  service.max_keep_alive = 100; // max keep-alive sequence 
+  //service.soap_version = SOAP_1_1; // Ensure SOAP 1.1 is used
+  soap_set_namespaces(&service, namespaces);
+
+  bindSocket = service.bind(NULL, port, 100);
+  if (bindSocket == SOAP_INVALID_SOCKET) {
+	  service.soap_stream_fault(std::cerr); // TODO: replace this with LOGEX
+      return;
+  }
+
+  sprintf_s(sprintBuffer, 0x40, "Service Started on port %d\n", port);
+  printf(sprintBuffer);
+  hEventLog = RegisterEventSourceA(NULL, "RCCService");
+  if (hEventLog != NULL) {
+    ReportEventA(hEventLog, EVENTLOG_INFORMATION_TYPE, 0, 0x20000001, NULL, 1, 0, (LPCSTR *)&sprintBuffer, NULL);
+    DeregisterEventSource(hEventLog);
+  }
+}
+
+// reads requests for SOAP
+void acceptRCC()
+{
+  //char sprintfBuffer[32];
+  
+  if (service.accept() == SOAP_INVALID_SOCKET) {
+    service.soap_stream_fault(std::cerr); // TODO: replace this with LOGEX
+    return;
+  }
+
+  if (service.serve() != SOAP_OK)
+	service.soap_stream_fault(std::cerr); // TODO: replace this with LOGEX
+
+  //sprintf_s(sprintfBuffer, 0x20, "web request %d", 10); // learn about this later
+  // these are ALL RBX related functions
+  // we can't use these yet
+  //FUN_00406a50(FUN_00405ae0,soapSock);
+  //uVar2 = FUN_00563880(appcStack_c0,appcStack_a0,local_3c,0);
+
+  service.destroy();
+}
 
 // entry point
 int main(int argc,char **argv)
@@ -281,40 +334,37 @@ int main(int argc,char **argv)
       keyTerm = '\0';
       pressedKey = pressedKey + 1;
     }
-    else {
-      command = strcmp(argv[pressedKey], "-Uninstall");
-      if (command == 0) {
-        deleteRCCService();
-        deleteRCCReg();
-        keyTerm = '\0';
-        pressedKey = pressedKey + 1;
-      }
-      else {
-        command = strcmp(argv[pressedKey], "-Start");
-        if (command == 0) {
-          startRCCService();
-          keyTerm = '\0';
-          pressedKey = pressedKey + 1;
-        }
-        else {
-          command = strcmp(argv[pressedKey], "-Stop");
-          if (command == 0) {
-            stopRCCService();
-            keyTerm = '\0';
-            pressedKey = pressedKey + 1;
-          }
-          else {
-            command = strcmp(argv[pressedKey], "-Console");
-            if (command == 0) {
-              currentRawChar = '\x01';
-              keyTerm = '\0';
-            }
-            pressedKey = pressedKey + 1;
-          }
-        }
-      }
+    
+    command = strcmp(argv[pressedKey], "-Uninstall");
+    if (command == 0) {
+      deleteRCCService();
+      deleteRCCReg();
+      keyTerm = '\0';
+      pressedKey = pressedKey + 1;
     }
+
+    command = strcmp(argv[pressedKey], "-Start");
+    if (command == 0) {
+      startRCCService();
+      keyTerm = '\0';
+      pressedKey = pressedKey + 1;
+    }
+
+    command = strcmp(argv[pressedKey], "-Stop");
+    if (command == 0) {
+      stopRCCService();
+      keyTerm = '\0';
+      pressedKey = pressedKey + 1;
+    }
+
+    command = strcmp(argv[pressedKey], "-Console");
+    if (command == 0) {
+      currentRawChar = '\x01';
+      keyTerm = '\0';
+      pressedKey = pressedKey + 1;
+    }       
   }
+
   if (currentRawChar != '\0') {
     for (pressedKey = 1; pressedKey < argc; pressedKey = pressedKey + 1) {
       currentChar = *argv[pressedKey];
@@ -323,10 +373,10 @@ int main(int argc,char **argv)
       }
     }
 
-    //FUN_00405b50();
+    startupRCC(80);
     printf("Press ESC key to exit\n");
 	
-	  // esc checking
+	// esc checking
     do {
       pressedKey = _kbhit();
       if (pressedKey != 0) {
@@ -336,7 +386,7 @@ int main(int argc,char **argv)
           return 0;
         }
       }
-      //FUN_00405ca0();
+      acceptRCC();
     } while( true );
   }
 
@@ -349,7 +399,7 @@ int main(int argc,char **argv)
     dispatchResult = 0;
     if (dispatchResult == 0) {
       lastError = GetLastError();
-      printf("StartServiceCtrlDispatcher failed (%d)\n",lastError);
+      printf("StartServiceCtrlDispatcher failed (%d)\n", lastError);
     }
   }
 
