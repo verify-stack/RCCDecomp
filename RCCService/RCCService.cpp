@@ -14,15 +14,15 @@ int createRegMain()
   HKEY hkeyResult;
   DWORD isNew;
   
-  hkeyResult = (HKEY)0x0;
+  hkeyResult = NULL;
   regStatus = RegCreateKeyExA(
 	  HKEY_LOCAL_MACHINE,  
 	  "SYSTEM\\CurrentControlSet\\Services\\Eventlog\\Application\\RCCService",
 	  0,
-	  (LPSTR)0x0,
+	  NULL,
 	  0,
 	  0x2001f,
-	  (LPSECURITY_ATTRIBUTES)0x0,
+	  NULL,
 	  &hkeyResult,
 	  &isNew
   );
@@ -264,13 +264,12 @@ void startupRCC(int port)
   service.recv_timeout = 60; // 60 seconds 
   //service.accept_timeout = 1; // server stops after 1 second
   service.max_keep_alive = 100; // max keep-alive sequence 
-  //service.soap_version = SOAP_1_1; // Ensure SOAP 1.1 is used
   soap_set_namespaces(&service, namespaces);
 
   bindSocket = service.bind(NULL, port, 100);
   if (bindSocket == SOAP_INVALID_SOCKET) {
 	  service.soap_stream_fault(std::cerr); // TODO: replace this with LOGEX
-      return;
+    return;
   }
 
   sprintf_s(sprintBuffer, 0x40, "Service Started on port %d\n", port);
