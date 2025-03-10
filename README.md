@@ -18,8 +18,4 @@ RCCDecomp is not related to ROBLOX, Roblox, ROBLOX Corporation, or any thing rel
 
 ## Requirements
 * Visual Studio 2005
-<<<<<<< HEAD
 * Visual C++ 8
-=======
-* Visual C++ 8
->>>>>>> 217d06f7a978990851b777975c5ae825184b97e4
