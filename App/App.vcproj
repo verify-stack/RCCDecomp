@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="RCCService"
-	ProjectGUID="{14039E27-1F9D-4615-A851-E01A1F836D6F}"
-	RootNamespace="RCCService"
+	Name="App"
+	ProjectGUID="{0FDE3E10-DEF3-4250-B685-A8C58C5DC992}"
+	RootNamespace="App"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -19,8 +19,7 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			UseOfATL="1"
+			ConfigurationType="4"
 			CharacterSet="1"
 			>
 			<Tool
@@ -41,7 +40,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)\libs\boost_1_35_0&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -60,20 +60,12 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/FORCE:MULTIPLE"
-				AdditionalDependencies="gSOAPd.lib"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(OutDir)\lib\x32\"
-				GenerateDebugInformation="true"
-				SubSystem="1"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\lib\x32\$(ProjectName)d.lib"
+				AdditionalLibraryDirectories="$(SolutionDir)\libs\boost_1_35_0\stage\lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -85,12 +77,6 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -98,8 +84,7 @@
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			UseOfATL="1"
+			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -120,7 +105,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="$(SolutionDir)\libs\boost_1_35_0"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
@@ -137,20 +123,11 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(OutDir)\lib\x32\"
-				GenerateDebugInformation="true"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\lib\x32\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -160,12 +137,6 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -180,14 +151,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath=".\RCCService.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RCCServiceSoap.cpp"
-				>
-			</File>
 			<File
 				RelativePath=".\stdafx.cpp"
 				>
@@ -208,6 +171,42 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<Filter
+				Name="Util Source"
+				>
+				<File
+					RelativePath=".\RBXName.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\standardout.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="V8 Tree"
+				>
+				<File
+					RelativePath=".\Instance.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Reflection Source"
+				>
+				<File
+					RelativePath=".\ClassDescriptor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Descriptor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\PropertyDescriptor.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -218,6 +217,42 @@
 				RelativePath=".\stdafx.h"
 				>
 			</File>
+			<Filter
+				Name="Util Header"
+				>
+				<File
+					RelativePath=".\RBXName.h"
+					>
+				</File>
+				<File
+					RelativePath=".\standardout.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="V8 Tree"
+				>
+				<File
+					RelativePath=".\Instance.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Reflection Header"
+				>
+				<File
+					RelativePath=".\ClassDescriptor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Descriptor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PropertyDescriptor.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"

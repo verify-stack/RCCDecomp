@@ -2,7 +2,6 @@
 // from the 2016 source code leak
 
 #include "stdafx.h"
-#include "gSOAP/generated/RCCServiceSoap.nsmap"
 #include "gSOAP/generated/soapRCCServiceSoapService.h"
 
 int RCCServiceSoapService::HelloWorld(_ns1__HelloWorld *ns1__HelloWorld, _ns1__HelloWorldResponse *ns1__HelloWorldResponse)
