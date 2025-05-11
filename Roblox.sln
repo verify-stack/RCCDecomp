@@ -4,9 +4,22 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RCCService", "RCCService\RCCService.vcproj", "{14039E27-1F9D-4615-A851-E01A1F836D6F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FCFBB063-4C2E-4BF6-A51E-75674A4FD458} = {FCFBB063-4C2E-4BF6-A51E-75674A4FD458}
+		{0FDE3E10-DEF3-4250-B685-A8C58C5DC992} = {0FDE3E10-DEF3-4250-B685-A8C58C5DC992}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gSOAP", "gSOAP\gSOAP.vcproj", "{FCFBB063-4C2E-4BF6-A51E-75674A4FD458}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{36AEE64D-7280-4A9B-A5E8-D8D962556000}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+		libs\README.md = libs\README.md
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App", "App\App.vcproj", "{0FDE3E10-DEF3-4250-B685-A8C58C5DC992}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "Base\Base.vcproj", "{B1C5866D-5800-4BD5-BCB2-7F9E86A9A2F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +35,14 @@ Global
 		{FCFBB063-4C2E-4BF6-A51E-75674A4FD458}.Debug|Win32.Build.0 = Debug|Win32
 		{FCFBB063-4C2E-4BF6-A51E-75674A4FD458}.Release|Win32.ActiveCfg = Release|Win32
 		{FCFBB063-4C2E-4BF6-A51E-75674A4FD458}.Release|Win32.Build.0 = Release|Win32
+		{0FDE3E10-DEF3-4250-B685-A8C58C5DC992}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0FDE3E10-DEF3-4250-B685-A8C58C5DC992}.Debug|Win32.Build.0 = Debug|Win32
+		{0FDE3E10-DEF3-4250-B685-A8C58C5DC992}.Release|Win32.ActiveCfg = Release|Win32
+		{0FDE3E10-DEF3-4250-B685-A8C58C5DC992}.Release|Win32.Build.0 = Release|Win32
+		{B1C5866D-5800-4BD5-BCB2-7F9E86A9A2F6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B1C5866D-5800-4BD5-BCB2-7F9E86A9A2F6}.Debug|Win32.Build.0 = Debug|Win32
+		{B1C5866D-5800-4BD5-BCB2-7F9E86A9A2F6}.Release|Win32.ActiveCfg = Release|Win32
+		{B1C5866D-5800-4BD5-BCB2-7F9E86A9A2F6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
