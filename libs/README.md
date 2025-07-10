@@ -30,7 +30,7 @@ boost_1_35_0 .....................................Root folder
 		 algorithm\
 		 any\
 		 array\
-						 …more libraries…
+						 ï¿½more librariesï¿½
 	   status\ .........................Boost-wide test suite
 	   tools\ ...........Utilities, e.g. bjam, quickbook, bcp
 	   more\ ..........................Policy documents, etc.
