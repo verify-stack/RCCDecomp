@@ -1,14 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RCCService", "RCCService\RCCService.vcproj", "{14039E27-1F9D-4615-A851-E01A1F836D6F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{FCFBB063-4C2E-4BF6-A51E-75674A4FD458} = {FCFBB063-4C2E-4BF6-A51E-75674A4FD458}
-		{0FDE3E10-DEF3-4250-B685-A8C58C5DC992} = {0FDE3E10-DEF3-4250-B685-A8C58C5DC992}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gSOAP", "gSOAP\gSOAP.vcproj", "{FCFBB063-4C2E-4BF6-A51E-75674A4FD458}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{36AEE64D-7280-4A9B-A5E8-D8D962556000}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -17,9 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		libs\README.md = libs\README.md
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App", "App\App.vcproj", "{0FDE3E10-DEF3-4250-B685-A8C58C5DC992}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RCCService", "RCCService\RCCService.vcxproj", "{14039E27-1F9D-4615-A851-E01A1F836D6F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "Base\Base.vcproj", "{B1C5866D-5800-4BD5-BCB2-7F9E86A9A2F6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gSOAP", "gSOAP\gSOAP.vcxproj", "{FCFBB063-4C2E-4BF6-A51E-75674A4FD458}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App", "App\App.vcxproj", "{0FDE3E10-DEF3-4250-B685-A8C58C5DC992}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "Base\Base.vcxproj", "{B1C5866D-5800-4BD5-BCB2-7F9E86A9A2F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

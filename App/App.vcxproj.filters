@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Util Source">
+      <UniqueIdentifier>{121393d7-e6d7-4d6a-915e-5d4ba5ca49ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\V8 Tree">
+      <UniqueIdentifier>{9dec0517-d34c-407d-b912-0bd2df32ff2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Reflection Source">
+      <UniqueIdentifier>{26899842-109f-4163-b817-f7cc3ff6e3bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Util Header">
+      <UniqueIdentifier>{94cfaf12-581f-40cc-847c-053f815cd0fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\V8 Tree">
+      <UniqueIdentifier>{b3357514-9f13-45d8-9931-c1c164b386d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Reflection Header">
+      <UniqueIdentifier>{0424e074-22fa-49e4-be59-5f93649dada8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LogManager.cpp">
+      <Filter>Source Files\Util Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source Files\Util Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RBXName.cpp">
+      <Filter>Source Files\Util Source</Filter>
+    </ClCompile>
+    <ClCompile Include="standardout.cpp">
+      <Filter>Source Files\Util Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Instance.cpp">
+      <Filter>Source Files\V8 Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassDescriptor.cpp">
+      <Filter>Source Files\Reflection Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Descriptor.cpp">
+      <Filter>Source Files\Reflection Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyDescriptor.cpp">
+      <Filter>Source Files\Reflection Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogManager.h">
+      <Filter>Header Files\Util Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Header Files\Util Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RBXName.h">
+      <Filter>Header Files\Util Header</Filter>
+    </ClInclude>
+    <ClInclude Include="standardout.h">
+      <Filter>Header Files\Util Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Instance.h">
+      <Filter>Header Files\V8 Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassDescriptor.h">
+      <Filter>Header Files\Reflection Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Descriptor.h">
+      <Filter>Header Files\Reflection Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertyDescriptor.h">
+      <Filter>Header Files\Reflection Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

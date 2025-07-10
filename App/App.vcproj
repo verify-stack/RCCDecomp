@@ -175,6 +175,14 @@
 				Name="Util Source"
 				>
 				<File
+					RelativePath=".\LogManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Object.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\RBXName.cpp"
 					>
 				</File>
@@ -220,6 +228,14 @@
 			<Filter
 				Name="Util Header"
 				>
+				<File
+					RelativePath=".\LogManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Object.h"
+					>
+				</File>
 				<File
 					RelativePath=".\RBXName.h"
 					>

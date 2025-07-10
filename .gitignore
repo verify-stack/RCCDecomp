@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+## custom
+
+
 # User-specific files
 *.rsuser
 *.suo
@@ -398,3 +401,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Default Libraries
+libs/boost_1_35_0/
+libs/g3d-6_09/

@@ -8,13 +8,20 @@ namespace RBX
 		Creatable();
 	public:
 		template<class T>
-		static boost::shared_ptr<T> create() // stolen from the source code leak, TODO: replace this
+		static boost::shared_ptr<T> create()
 		{
-			//boost::shared_ptr<T> obj = boost::shared_ptr<T>(new T());
-            //boost::shared_ptr<T> (*thisFunction)() = &create;
-			// we don't have this, don't include this
-            //checkRbxCaller<kCallCheckCallersCode, callCheckSetBasicFlag<HATE_RETURN_CHECK> >(reinterpret_cast<void*>(thisFunction));
-			return boost::shared_ptr<T>(new T());
+			T classUnit;
+
+			classUnit = new T();
+			if (classUnit == NULL)
+				classUnit = NULL
+			else
+				classUnit = NULL // TODO
 		}
-	}
-}
+
+		//template<class T>
+		//static boost::shared_ptr<T> create(auto P1)
+		//{
+		//}
+	};
+};

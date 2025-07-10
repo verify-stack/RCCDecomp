@@ -4,13 +4,14 @@
 #include "stdafx.h"
 #include "gSOAP/generated/RCCServiceSoap.nsmap"
 #include "gSOAP/generated/soapRCCServiceSoapService.h"
+#include "LogManager.h"
 
 RCCServiceSoapService service;
 
 // inits roblox in the RCC
 void initRobloxCreatable()
 {
-	//RBX::Creatable::create<>();
+	//RBX::Creatable::create<>(); // this is weird, the rcc inits the service with a ModelInstance.
 }
 
 // creates the reg
@@ -369,7 +370,9 @@ int main(int argc,char **argv)
 			pressedKey = pressedKey + 1;
 		}			 
 	}
-
+	
+	//RBX::Log *myLog = new RBX::Log("Unknown.log");
+	//myLog->writeEntry(RBX::Severity::Information, "information test");
 	if (currentRawChar != '\0') {
 		for (pressedKey = 1; pressedKey < argc; pressedKey = pressedKey + 1) {
 			currentChar = *argv[pressedKey];
