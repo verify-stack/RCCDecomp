@@ -1,5 +1,6 @@
 > [!IMPORTANT]
 > I'll be restructuring the whole project (changing libraries etc) to better fit the source code at the time. As well redecompiling everything.
+> I can see you hadi...
 
 # RCCDecomp
 This is a partial decompilcation attempt of a ROBLOX legacy binary dated from May 13, 2008. The decompilcation may be scuffed because this is my first time doing this.
